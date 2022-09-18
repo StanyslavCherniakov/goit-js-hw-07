@@ -24,12 +24,14 @@ function createMakrUp(galleryItems) {
     .join("");
 }
 
+let instance = "";
+
 function onImageClick(event) {
   event.preventDefault();
   if (event.target.nodeName !== "IMG") {
     return;
   }
-  const instance = basicLightbox.create(
+  instance = basicLightbox.create(
     `
     <img src=${event.target.dataset.source}>
 `
@@ -37,11 +39,11 @@ function onImageClick(event) {
   instance.show();
 
   document.addEventListener("keydown", onEscCloseModal);
+}
 
-  function onEscCloseModal(event) {
-    if (event.code === "Escape") {
-      instance.close();
-      document.removeEventListener("keydown", onEscCloseModal);
-    }
+function onEscCloseModal(event) {
+  if (event.code === "Escape") {
+    instance.close();
+    document.removeEventListener("keydown", onEscCloseModal);
   }
 }
